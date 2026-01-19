@@ -136,3 +136,44 @@ InventoryTransfer.postman_collection.json
 - Backend uses Prisma transactions to ensure atomic transfers
 - Authentication intentionally omitted for simplicity
 - Frontend and backend live in the same repository for simplicity
+
+------------------------------------------------------------------------
+CI / Linting
+
+basic GitHub Actions workflow
+
+It runs on every push or pull request to main or dev
+
+Install dependencies
+
+Generate Prisma client
+
+Run linting checks
+
+This demonstrates how the project could be automatically verified for correctness and code quality before merging.
+
+Example workflow:
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npx prisma generate
+    - run: npm run lint
