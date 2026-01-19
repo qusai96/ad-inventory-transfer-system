@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "Inventory Transfer API",
+    "_postman_id": "abcd1234-5678-efgh-ijkl-9876543210",
+    "description": "Test Inventory Transfer System - success and failure cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Inventory",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/inventory",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api","inventory"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Transfer Success",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": 1,\n  \"fromLocationId\": 1,\n  \"toLocationId\": 2,\n  \"quantity\": 5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/transfer",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api","transfer"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fail - Warehouse Stock Too Low",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": 2,\n  \"fromLocationId\": 1,\n  \"toLocationId\": 2,\n  \"quantity\": 500\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/transfer",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api","transfer"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fail - Store Capacity Exceeded",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": 1,\n  \"fromLocationId\": 1,\n  \"toLocationId\": 2,\n  \"quantity\": 50\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/transfer",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api","transfer"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
