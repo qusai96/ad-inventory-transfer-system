@@ -14,7 +14,7 @@ Built with Node.js, Prisma, MySQL, and React, with the frontend and backend in a
 bash
 git clone https://github.com/qusai96/ad-inventory-transfer-system.git
 cd ad-inventory-transfer-system
-
+**Use the main branch when running the project.**
 
 2. Create your .env file
 
