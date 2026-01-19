@@ -1,18 +1,21 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const inventoryRoutes = require('./src/routes/inventory.routes'); 
-const transferRoutes = require('./src/routes/transfer.routes'); // optional if you want transfers
+const cors = require('cors');
+
+const inventoryRoutes = require('./src/routes/inventory.routes');
+const transferRoutes = require('./src/routes/transfer.routes');
 
 const app = express();
-app.use(bodyParser.json());
 
-// Only API routes
+app.use(cors({
+  origin: 'http://localhost:3001',
+}));
+
+app.use(express.json());
+
 app.use('/api', inventoryRoutes);
-app.use('/api', transferRoutes);  // keep if using transfer
+app.use('/api', transferRoutes);
 
-// Optional root route for testing
-app.get('/', (req, res) => {
-  res.send('Inventory Transfer System Backend is running!');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
-
-app.listen(4000, () => console.log('Server running on http://localhost:4000'));
